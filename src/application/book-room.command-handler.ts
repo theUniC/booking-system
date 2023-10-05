@@ -4,7 +4,11 @@ import { InvalidDateRangeProvided } from '../domainmodel/InvalidDateRangeProvide
 
 export class BookRoomCommandHandler {
   async execute(command: BookRoomCommand) {
-    if (isAfter(command.from, command.to)) {
+    this.assertArrivalDateIsBeforeDepartureDate(command.from, command.to);
+  }
+
+  private assertArrivalDateIsBeforeDepartureDate(from: Date, to: Date) {
+    if (isAfter(from, to)) {
       throw new InvalidDateRangeProvided();
     }
   }
