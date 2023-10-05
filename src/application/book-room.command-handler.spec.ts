@@ -1,15 +1,8 @@
 import { expect } from '@jest/globals';
-import { isAfter, subDays } from 'date-fns';
+import { subDays } from 'date-fns';
 import { InvalidDateRangeProvided } from '../domainmodel/InvalidDateRangeProvided';
 import { BookRoomCommand } from './book-room.command';
-
-class BookRoomCommandHandler {
-  async execute(command: BookRoomCommand) {
-    if (isAfter(command.from, command.to)) {
-      throw new InvalidDateRangeProvided();
-    }
-  }
-}
+import { BookRoomCommandHandler } from './book-room.command-handler';
 
 describe('BookRoom', () => {
   it('should throw an exception when departure date is before arrival date', async () => {
