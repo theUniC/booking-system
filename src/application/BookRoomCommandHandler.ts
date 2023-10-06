@@ -1,8 +1,8 @@
-import { BookRoomCommand } from './book-room.command';
 import { isAfter } from 'date-fns';
 import { InvalidDateRangeProvided } from '../domainmodel/InvalidDateRangeProvided';
 import { BookingRepository } from '../domainmodel/BookingRepository';
 import { RoomAlreadyBooked } from '../domainmodel/RoomAlreadyBooked';
+import { BookRoomCommand } from './BookRoomCommand';
 
 export class BookRoomCommandHandler {
   constructor(private readonly bookingRepository: BookingRepository) {}

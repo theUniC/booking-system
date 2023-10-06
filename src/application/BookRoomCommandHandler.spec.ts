@@ -1,12 +1,12 @@
 import { beforeEach, expect } from '@jest/globals';
 import { addDays, subDays } from 'date-fns';
 import { InvalidDateRangeProvided } from '../domainmodel/InvalidDateRangeProvided';
-import { BookRoomCommand } from './book-room.command';
-import { BookRoomCommandHandler } from './book-room.command-handler';
 import { RoomAlreadyBooked } from '../domainmodel/RoomAlreadyBooked';
 import { BookingRepository } from '../domainmodel/BookingRepository';
 import { InMemoryBookingRepository } from '../infrastructure/InMemoryBookingRepository';
 import { Booking } from '../domainmodel/Booking';
+import { BookRoomCommandHandler } from './BookRoomCommandHandler';
+import { BookRoomCommand } from './BookRoomCommand';
 
 describe('BookRoom', () => {
   let repository: BookingRepository;
