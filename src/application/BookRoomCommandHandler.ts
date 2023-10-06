@@ -3,6 +3,7 @@ import { InvalidDateRangeProvided } from '../domainmodel/InvalidDateRangeProvide
 import { BookingRepository } from '../domainmodel/BookingRepository';
 import { RoomAlreadyBooked } from '../domainmodel/RoomAlreadyBooked';
 import { BookRoomCommand } from './BookRoomCommand';
+import { Booking } from '../domainmodel/Booking';
 
 export class BookRoomCommandHandler {
   constructor(private readonly bookingRepository: BookingRepository) {}
@@ -12,10 +13,20 @@ export class BookRoomCommandHandler {
       command.arrivalDate,
       command.departureDate,
     );
+
     await this.assertRoomIsAvailable(
       command.roomName,
       command.arrivalDate,
       command.departureDate,
+    );
+
+    await this.bookingRepository.add(
+      new Booking(
+        command.clientId,
+        command.roomName,
+        command.arrivalDate,
+        command.departureDate,
+      ),
     );
   }
 
