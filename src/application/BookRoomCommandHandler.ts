@@ -8,11 +8,14 @@ export class BookRoomCommandHandler {
   constructor(private readonly bookingRepository: BookingRepository) {}
 
   async execute(command: BookRoomCommand) {
-    this.assertArrivalDateIsBeforeDepartureDate(command.from, command.to);
+    this.assertArrivalDateIsBeforeDepartureDate(
+      command.arrivalDate,
+      command.departureDate,
+    );
     await this.assertRoomIsAvailable(
       command.roomName,
-      command.from,
-      command.to,
+      command.arrivalDate,
+      command.departureDate,
     );
   }
 
