@@ -47,4 +47,18 @@ describe('BookRoom', () => {
 
     expect(result).rejects.toThrow(RoomAlreadyBooked);
   });
+
+  it('should add a new booking to the collection', () => {
+    const arrivalDate = new Date();
+    const result = commandHandler.execute(
+      new BookRoomCommand(
+        'test1',
+        'test',
+        arrivalDate,
+        addDays(arrivalDate, 2),
+      ),
+    );
+
+    expect(result).resolves.toBeUndefined();
+  });
 });
