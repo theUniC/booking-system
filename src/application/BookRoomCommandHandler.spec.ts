@@ -10,13 +10,14 @@ import { BookRoomCommand } from './BookRoomCommand';
 
 describe('BookRoom', () => {
   let repository: BookingRepository;
+  let commandHandler: BookRoomCommandHandler;
 
   beforeEach(() => {
     repository = new InMemoryBookingRepository();
+    commandHandler = new BookRoomCommandHandler(repository);
   });
 
   it('should throw an exception when departure date is before arrival date', async () => {
-    const commandHandler = new BookRoomCommandHandler(repository);
     const command = new BookRoomCommand(
       'test',
       'test',
@@ -29,7 +30,6 @@ describe('BookRoom', () => {
   });
 
   it('should throw an exception when the room is already booked', async () => {
-    const commandHandler = new BookRoomCommandHandler(repository);
     const arrivalDate = new Date();
 
     await repository.add(
