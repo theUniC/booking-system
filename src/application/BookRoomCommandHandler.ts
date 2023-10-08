@@ -20,14 +20,7 @@ export class BookRoomCommandHandler {
       command.departureDate,
     );
 
-    await this.bookingRepository.add(
-      new Booking(
-        command.clientId,
-        command.roomName,
-        command.arrivalDate,
-        command.departureDate,
-      ),
-    );
+    await this.bookingRepository.add(Booking.book(command));
   }
 
   private assertArrivalDateIsBeforeDepartureDate(from: Date, to: Date) {

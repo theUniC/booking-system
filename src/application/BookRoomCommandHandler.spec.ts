@@ -33,7 +33,12 @@ describe('BookRoom', () => {
     const arrivalDate = new Date();
 
     await repository.add(
-      new Booking('test', 'test', arrivalDate, addDays(arrivalDate, 2)),
+      Booking.book({
+        clientId: 'test',
+        roomName: 'test',
+        arrivalDate,
+        departureDate: addDays(arrivalDate, 2),
+      }),
     );
 
     const result = commandHandler.execute(
