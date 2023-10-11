@@ -4,6 +4,7 @@ import { AppService } from './app.service';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { Booking } from './domainmodel/Booking';
+import { BookRoomController } from './book-room.controller';
 
 @Module({
   imports: [
@@ -19,7 +20,7 @@ import { Booking } from './domainmodel/Booking';
     }),
     TypeOrmModule.forFeature([Booking]),
   ],
-  controllers: [AppController],
+  controllers: [AppController, BookRoomController],
   providers: [AppService],
 })
 export class AppModule {}
