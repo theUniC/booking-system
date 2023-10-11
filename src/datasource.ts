@@ -1,5 +1,5 @@
 import 'dotenv/config';
-import { DataSource, DataSourceOptions } from 'typeorm';
+import { DataSource } from 'typeorm';
 import * as process from 'process';
 import * as path from 'path';
 
