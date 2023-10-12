@@ -1,12 +1,20 @@
 import { isAfter } from 'date-fns';
 import { InvalidDateRangeProvided } from '../domainmodel/InvalidDateRangeProvided';
-import { BookingRepository } from '../domainmodel/BookingRepository';
+import {
+  BOOKING_REPOSITORY,
+  BookingRepository,
+} from '../domainmodel/BookingRepository';
 import { RoomAlreadyBooked } from '../domainmodel/RoomAlreadyBooked';
 import { BookRoomCommand } from './BookRoomCommand';
 import { Booking } from '../domainmodel/Booking';
+import { Inject, Injectable } from '@nestjs/common';
 
+@Injectable()
 export class BookRoomCommandHandler {
-  constructor(private readonly bookingRepository: BookingRepository) {}
+  constructor(
+    @Inject(BOOKING_REPOSITORY)
+    private readonly bookingRepository: BookingRepository,
+  ) {}
 
   async execute(command: BookRoomCommand) {
     this.assertArrivalDateIsBeforeDepartureDate(

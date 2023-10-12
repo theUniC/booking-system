@@ -8,3 +8,5 @@ export interface BookingRepository {
 
   add(booking: Booking): Promise<void>;
 }
+
+export const BOOKING_REPOSITORY = Symbol('BookingRepository');

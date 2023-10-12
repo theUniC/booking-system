@@ -6,14 +6,25 @@ import { BookRoomInputDto } from './book-room-input.dto';
 import { addDays } from 'date-fns';
 import { v4 as uuidv4 } from 'uuid';
 import { AppModule } from './app.module';
+import {
+  BOOKING_REPOSITORY,
+  BookingRepository,
+} from './domainmodel/BookingRepository';
+import { InMemoryBookingRepository } from './infrastructure/InMemoryBookingRepository';
 
 describe('BookRoomController', () => {
   let app: INestApplication;
+  let bookingRepository: BookingRepository;
 
   beforeAll(async () => {
+    bookingRepository = new InMemoryBookingRepository();
+
     const moduleRef: TestingModule = await Test.createTestingModule({
       imports: [AppModule],
-    }).compile();
+    })
+      .overrideProvider(BOOKING_REPOSITORY)
+      .useValue(bookingRepository)
+      .compile();
 
     app = moduleRef.createNestApplication();
     app.useGlobalPipes(new ValidationPipe());

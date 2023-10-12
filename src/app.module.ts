@@ -3,6 +3,9 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { Booking } from './domainmodel/Booking';
 import { BookRoomController } from './book-room.controller';
+import { BookRoomCommandHandler } from './application/BookRoomCommandHandler';
+import { BOOKING_REPOSITORY } from './domainmodel/BookingRepository';
+import { TypeOrmBookingRepository } from './infrastructure/TypeOrmBookingRepository';
 
 @Module({
   imports: [
@@ -19,5 +22,12 @@ import { BookRoomController } from './book-room.controller';
     TypeOrmModule.forFeature([Booking]),
   ],
   controllers: [BookRoomController],
+  providers: [
+    {
+      provide: BOOKING_REPOSITORY,
+      useClass: TypeOrmBookingRepository,
+    },
+    BookRoomCommandHandler,
+  ],
 })
 export class AppModule {}
