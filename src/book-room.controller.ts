@@ -5,6 +5,6 @@ import { BookRoomInputDto } from './book-room-input.dto';
 export class BookRoomController {
   @Post('rooms')
   async handleRequest(@Body() bookRoomDto: BookRoomInputDto) {
-    return undefined;
+    throw new Error('Still not implemented');
   }
 }

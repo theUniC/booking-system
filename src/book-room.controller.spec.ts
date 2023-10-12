@@ -25,12 +25,15 @@ describe('BookRoomController', () => {
   });
 
   const INVALID_CLIENT_ID = '';
+  const ANOTHER_INVALID_CLIENT_ID = 'invalid-client-id';
   const INVALID_ROOM_NAME = '';
+  const VALID_ROOM_NAME = 'test';
 
   const invalidInputData = [
-    [INVALID_CLIENT_ID, 'test'],
+    [INVALID_CLIENT_ID, VALID_ROOM_NAME],
     [uuidv4(), INVALID_ROOM_NAME],
     [INVALID_CLIENT_ID, INVALID_ROOM_NAME],
+    [ANOTHER_INVALID_CLIENT_ID, VALID_ROOM_NAME],
   ];
 
   it.each(invalidInputData)(
@@ -50,4 +53,19 @@ describe('BookRoomController', () => {
       expect(response.status).toBe(HttpStatus.BAD_REQUEST);
     },
   );
+
+  it('should book a room successfully', async () => {
+    const bookRoomDto = new BookRoomInputDto(
+      uuidv4(),
+      VALID_ROOM_NAME,
+      new Date(),
+      addDays(new Date(), 2),
+    );
+
+    const response = await request(app.getHttpServer())
+      .post('/rooms')
+      .send(bookRoomDto);
+
+    expect(response.status).toBe(HttpStatus.CREATED);
+  });
 });
