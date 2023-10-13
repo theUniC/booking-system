@@ -19,10 +19,10 @@ export class Booking {
   @Column()
   private roomName: string;
 
-  @Column()
+  @Column({ type: 'timestamptz' })
   private arrivalDate: Date;
 
-  @Column()
+  @Column({ type: 'timestamptz' })
   private departureDate: Date;
 
   private constructor(

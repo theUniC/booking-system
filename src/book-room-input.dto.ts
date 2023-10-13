@@ -1,4 +1,5 @@
-import { IsNotEmpty, IsUUID } from 'class-validator';
+import { IsDate, IsNotEmpty, IsUUID } from 'class-validator';
+import { Type } from 'class-transformer';
 
 export class BookRoomInputDto {
   @IsNotEmpty()
@@ -8,7 +9,12 @@ export class BookRoomInputDto {
   @IsNotEmpty()
   readonly roomName: string;
 
+  @IsDate()
+  @Type(() => Date)
   readonly arrivalDate: Date;
+
+  @IsDate()
+  @Type(() => Date)
   readonly departureDate: Date;
 
   constructor(

@@ -1,5 +1,5 @@
 import * as request from 'supertest';
-import { beforeAll, expect } from '@jest/globals';
+import { afterEach, beforeAll, beforeEach, expect } from '@jest/globals';
 import { Test, TestingModule } from '@nestjs/testing';
 import { HttpStatus, INestApplication, ValidationPipe } from '@nestjs/common';
 import { BookRoomInputDto } from './book-room-input.dto';
@@ -16,7 +16,7 @@ describe('BookRoomController', () => {
   let app: INestApplication;
   let bookingRepository: BookingRepository;
 
-  beforeAll(async () => {
+  beforeEach(async () => {
     bookingRepository = new InMemoryBookingRepository();
 
     const moduleRef: TestingModule = await Test.createTestingModule({
@@ -27,11 +27,11 @@ describe('BookRoomController', () => {
       .compile();
 
     app = moduleRef.createNestApplication();
-    app.useGlobalPipes(new ValidationPipe());
+    app.useGlobalPipes(new ValidationPipe({ transform: true }));
     await app.init();
   });
 
-  afterAll(async () => {
+  afterEach(async () => {
     await app.close();
   });
 
@@ -78,5 +78,24 @@ describe('BookRoomController', () => {
       .send(bookRoomDto);
 
     expect(response.status).toBe(HttpStatus.CREATED);
+  });
+
+  describe('When room is already booked', () => {
+    it('should throw a 409 Conflict', async () => {
+      const arrivalDate = new Date();
+
+      const bookRoomDto = new BookRoomInputDto(
+        uuidv4(),
+        VALID_ROOM_NAME,
+        arrivalDate,
+        addDays(arrivalDate, 2),
+      );
+
+      const api = request(app.getHttpServer());
+      const response = await api.post('/rooms').send(bookRoomDto);
+      expect(response.status).toBe(HttpStatus.CREATED);
+      const failingResponse = await api.post('/rooms').send(bookRoomDto);
+      expect(failingResponse.status).toBe(HttpStatus.CONFLICT);
+    });
   });
 });
