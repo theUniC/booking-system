@@ -7,10 +7,13 @@ import {
 import { RoomAlreadyBooked } from '../domainmodel/RoomAlreadyBooked';
 import { BookRoomCommand } from './BookRoomCommand';
 import { Booking } from '../domainmodel/Booking';
-import { Inject, Injectable } from '@nestjs/common';
+import { Inject } from '@nestjs/common';
+import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 
-@Injectable()
-export class BookRoomCommandHandler {
+@CommandHandler(BookRoomCommand)
+export class BookRoomCommandHandler
+  implements ICommandHandler<BookRoomCommand>
+{
   constructor(
     @Inject(BOOKING_REPOSITORY)
     private readonly bookingRepository: BookingRepository,

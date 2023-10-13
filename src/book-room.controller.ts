@@ -11,16 +11,17 @@ import { BookRoomInputDto } from './book-room-input.dto';
 import { BookRoomCommandHandler } from './application/BookRoomCommandHandler';
 import { BookRoomCommand } from './application/BookRoomCommand';
 import { RoomAlreadyBooked } from './domainmodel/RoomAlreadyBooked';
+import { CommandBus } from '@nestjs/cqrs';
 
 @Controller()
 export class BookRoomController {
-  constructor(private bookRoomCommandHandler: BookRoomCommandHandler) {}
+  constructor(private commandBus: CommandBus) {}
 
   @Post('rooms')
   @HttpCode(HttpStatus.CREATED)
   async handleRequest(@Body() bookRoomDto: BookRoomInputDto) {
     try {
-      await this.bookRoomCommandHandler.execute(
+      await this.commandBus.execute(
         new BookRoomCommand(
           bookRoomDto.clientId,
           bookRoomDto.roomName,

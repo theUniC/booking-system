@@ -6,6 +6,7 @@ import { BookRoomController } from './book-room.controller';
 import { BookRoomCommandHandler } from './application/BookRoomCommandHandler';
 import { BOOKING_REPOSITORY } from './domainmodel/BookingRepository';
 import { TypeOrmBookingRepository } from './infrastructure/TypeOrmBookingRepository';
+import { CqrsModule } from '@nestjs/cqrs';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { TypeOrmBookingRepository } from './infrastructure/TypeOrmBookingReposit
       inject: [ConfigService],
     }),
     TypeOrmModule.forFeature([Booking]),
+    CqrsModule,
   ],
   controllers: [BookRoomController],
   providers: [
