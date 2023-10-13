@@ -3,6 +3,7 @@ import {
   ConflictException,
   Controller,
   HttpCode,
+  HttpException,
   HttpStatus,
   Post,
 } from '@nestjs/common';
@@ -27,12 +28,14 @@ export class BookRoomController {
           bookRoomDto.departureDate,
         ),
       );
-    } catch (e) {
+    } catch (e: any) {
       if (e instanceof RoomAlreadyBooked) {
         throw new ConflictException('Room already booked for that period');
       }
 
-      throw e;
+      throw new HttpException(e.message, HttpStatus.INTERNAL_SERVER_ERROR, {
+        cause: e,
+      });
     }
   }
 }

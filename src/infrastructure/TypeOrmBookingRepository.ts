@@ -20,9 +20,9 @@ export class TypeOrmBookingRepository implements BookingRepository {
     departureDate: Date,
   ): Promise<Booking[]> {
     return await this.typeOrmBookingRepository
-      .createQueryBuilder()
-      .where('arrivalDate >= :arrivalDate', { arrivalDate })
-      .andWhere('departureDate >= :departureDate', { departureDate })
+      .createQueryBuilder('b')
+      .where('b.arrivalDate >= :arrivalDate', { arrivalDate })
+      .andWhere('b.departureDate <= :departureDate', { departureDate })
       .getMany();
   }
 }
