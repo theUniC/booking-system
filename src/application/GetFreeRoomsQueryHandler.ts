@@ -16,8 +16,11 @@ export class GetFreeRoomsQueryHandler
     return undefined;
   }
 
-  private assertArrivalDateIsBeforeDepartureDate(from: Date, to: Date) {
-    if (isAfter(from, to)) {
+  private assertArrivalDateIsBeforeDepartureDate(
+    arrivalDate: Date,
+    departureDate: Date,
+  ) {
+    if (isAfter(arrivalDate, departureDate)) {
       throw new InvalidDateRangeProvided();
     }
   }

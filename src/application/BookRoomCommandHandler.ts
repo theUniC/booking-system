@@ -38,16 +38,23 @@ export class BookRoomCommandHandler
     booking.commit();
   }
 
-  private assertArrivalDateIsBeforeDepartureDate(from: Date, to: Date) {
-    if (isAfter(from, to)) {
+  private assertArrivalDateIsBeforeDepartureDate(
+    arrivalDate: Date,
+    departureDate: Date,
+  ) {
+    if (isAfter(arrivalDate, departureDate)) {
       throw new InvalidDateRangeProvided();
     }
   }
 
-  private async assertRoomIsAvailable(roomName: string, from: Date, to: Date) {
+  private async assertRoomIsAvailable(
+    roomName: string,
+    arrivalDate: Date,
+    departureDate: Date,
+  ) {
     const bookings = await this.bookingRepository.byArrivalAndDepartureDates(
-      from,
-      to,
+      arrivalDate,
+      departureDate,
     );
 
     if (bookings.filter((b) => b.getRoomName() === roomName).length > 0) {
