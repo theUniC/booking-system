@@ -1,5 +1,3 @@
-import { Room } from './Room';
-
 export interface RoomAvailabilityReadLayer {
   getAvailability(
     arrivalDate: Date,
