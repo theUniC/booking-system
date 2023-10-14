@@ -2,6 +2,7 @@ import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 import { GetFreeRoomsQuery } from './GetFreeRoomsQuery';
 import { isAfter } from 'date-fns';
 import { InvalidDateRangeProvided } from '../domainmodel/InvalidDateRangeProvided';
+import { Room } from '../domainmodel/Room';
 
 @QueryHandler(GetFreeRoomsQuery)
 export class GetFreeRoomsQueryHandler
@@ -10,7 +11,7 @@ export class GetFreeRoomsQueryHandler
   async execute({
     arrivalDate,
     departureDate,
-  }: GetFreeRoomsQuery): Promise<any> {
+  }: GetFreeRoomsQuery): Promise<Room[]> {
     this.assertArrivalDateIsBeforeDepartureDate(arrivalDate, departureDate);
 
     return [];
