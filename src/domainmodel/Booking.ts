@@ -1,5 +1,7 @@
 import { v4 as uuidv4 } from 'uuid';
 import { Column, Entity, PrimaryColumn } from 'typeorm';
+import { AggregateRoot } from '@nestjs/cqrs';
+import { RoomWasBooked } from './RoomWasBooked';
 
 export interface BookingOptions {
   clientId: string;
@@ -9,7 +11,7 @@ export interface BookingOptions {
 }
 
 @Entity()
-export class Booking {
+export class Booking extends AggregateRoot {
   @PrimaryColumn()
   private bookingId: string;
 
@@ -25,13 +27,14 @@ export class Booking {
   @Column({ type: 'timestamptz' })
   private departureDate: Date;
 
-  private constructor(
+  constructor(
     bookingId: string,
     clientId: string,
     roomName: string,
     arrivalDate: Date,
     departureDate: Date,
   ) {
+    super();
     this.bookingId = bookingId;
     this.clientId = clientId;
     this.roomName = roomName;
@@ -57,12 +60,18 @@ export class Booking {
     departureDate,
     roomName,
   }: BookingOptions): Booking {
-    return new Booking(
+    const booking = new Booking(
       uuidv4(),
       clientId,
       roomName,
       arrivalDate,
       departureDate,
     );
+
+    booking.apply(
+      new RoomWasBooked(clientId, roomName, arrivalDate, departureDate),
+    );
+
+    return booking;
   }
 }

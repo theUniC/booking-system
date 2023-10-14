@@ -2,19 +2,32 @@ import { beforeEach, expect } from '@jest/globals';
 import { addDays, subDays } from 'date-fns';
 import { InvalidDateRangeProvided } from '../domainmodel/InvalidDateRangeProvided';
 import { RoomAlreadyBooked } from '../domainmodel/RoomAlreadyBooked';
-import { BookingRepository } from '../domainmodel/BookingRepository';
+import {
+  BOOKING_REPOSITORY,
+  BookingRepository,
+} from '../domainmodel/BookingRepository';
 import { InMemoryBookingRepository } from '../infrastructure/InMemoryBookingRepository';
 import { Booking } from '../domainmodel/Booking';
 import { BookRoomCommandHandler } from './BookRoomCommandHandler';
 import { BookRoomCommand } from './BookRoomCommand';
+import { Test, TestingModule } from '@nestjs/testing';
+import { AppModule } from '../app.module';
 
 describe('BookRoom', () => {
   let repository: BookingRepository;
   let commandHandler: BookRoomCommandHandler;
 
-  beforeEach(() => {
+  beforeEach(async () => {
     repository = new InMemoryBookingRepository();
-    commandHandler = new BookRoomCommandHandler(repository);
+
+    const moduleRef: TestingModule = await Test.createTestingModule({
+      imports: [AppModule],
+    })
+      .overrideProvider(BOOKING_REPOSITORY)
+      .useValue(repository)
+      .compile();
+
+    commandHandler = moduleRef.get(BookRoomCommandHandler);
   });
 
   it('should throw an exception when departure date is before arrival date', async () => {
