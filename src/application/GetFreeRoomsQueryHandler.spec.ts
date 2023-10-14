@@ -11,4 +11,13 @@ describe('GetFreeRoomsQueryHandler', () => {
     const result = queryHandler.execute(query);
     expect(result).rejects.toThrow(InvalidDateRangeProvided);
   });
+
+  it('should return an empty list of free rooms when there are no rooms registered', async () => {
+    const queryHandler = new GetFreeRoomsQueryHandler();
+    const arrivalDate = new Date();
+    const query = new GetFreeRoomsQuery(arrivalDate, addDays(arrivalDate, 2));
+    const result = await queryHandler.execute(query);
+    expect(result).toBeInstanceOf(Array);
+    expect(result).toHaveLength(0);
+  });
 });

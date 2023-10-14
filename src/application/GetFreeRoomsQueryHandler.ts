@@ -13,7 +13,7 @@ export class GetFreeRoomsQueryHandler
   }: GetFreeRoomsQuery): Promise<any> {
     this.assertArrivalDateIsBeforeDepartureDate(arrivalDate, departureDate);
 
-    return undefined;
+    return [];
   }
 
   private assertArrivalDateIsBeforeDepartureDate(
