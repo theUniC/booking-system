@@ -1,1 +1,6 @@
-export class GetFreeRoomsQuery {}
+export class GetFreeRoomsQuery {
+  constructor(
+    readonly arrivalDate: Date,
+    readonly departureDate: Date,
+  ) {}
+}
