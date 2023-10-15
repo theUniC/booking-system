@@ -1,6 +1,6 @@
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 import { GetFreeRoomsQuery } from './GetFreeRoomsQuery';
-import { isAfter } from 'date-fns';
+import { areIntervalsOverlapping, isAfter } from 'date-fns';
 import { InvalidDateRangeProvided } from '../domainmodel/InvalidDateRangeProvided';
 import { Room } from '../domainmodel/Room';
 import { RoomAvailabilityReadLayer } from '../domainmodel/RoomAvailabilityReadLayer';
@@ -24,7 +24,23 @@ export class GetFreeRoomsQueryHandler
       departureDate,
     );
 
-    return Object.keys(availability).map((roomName) => new Room(roomName));
+    const comparingInterval = { start: arrivalDate, end: departureDate };
+    return Object.keys(availability)
+      .filter(
+        (roomName) =>
+          !availability[roomName].some(
+            ([bookedArrivalDate, bookedDepartureDate]) =>
+              areIntervalsOverlapping(
+                comparingInterval,
+                {
+                  start: bookedArrivalDate,
+                  end: bookedDepartureDate,
+                },
+                { inclusive: true },
+              ),
+          ),
+      )
+      .map((roomName) => new Room(roomName));
   }
 
   private assertArrivalDateIsBeforeDepartureDate(
