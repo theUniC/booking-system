@@ -9,6 +9,7 @@ import { TypeOrmBookingRepository } from './infrastructure/TypeOrmBookingReposit
 import { CqrsModule } from '@nestjs/cqrs';
 import { FileRoomAvailabilityReadLayer } from './infrastructure/FileRoomAvailabilityReadLayer';
 import { ROOM_AVAILABILITY_READ_LAYER } from './infrastructure/RoomAvailabilityReadLayer';
+import { GetAvailableRoomsController } from './get-available-rooms.controller';
 
 @Module({
   imports: [
@@ -25,7 +26,7 @@ import { ROOM_AVAILABILITY_READ_LAYER } from './infrastructure/RoomAvailabilityR
     TypeOrmModule.forFeature([Booking]),
     CqrsModule,
   ],
-  controllers: [PostBookingsController],
+  controllers: [PostBookingsController, GetAvailableRoomsController],
   providers: [
     {
       provide: BOOKING_REPOSITORY,
