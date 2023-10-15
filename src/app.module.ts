@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { Booking } from './domainmodel/Booking';
-import { BookRoomController } from './book-room.controller';
+import { PostRoomsController } from './post-rooms.controller';
 import { BookRoomCommandHandler } from './application/BookRoomCommandHandler';
 import { BOOKING_REPOSITORY } from './domainmodel/BookingRepository';
 import { TypeOrmBookingRepository } from './infrastructure/TypeOrmBookingRepository';
@@ -24,7 +24,7 @@ import { ROOM_AVAILABILITY_FILE_PATH } from './infrastructure/FileRoomAvailabili
     TypeOrmModule.forFeature([Booking]),
     CqrsModule,
   ],
-  controllers: [BookRoomController],
+  controllers: [PostRoomsController],
   providers: [
     {
       provide: BOOKING_REPOSITORY,

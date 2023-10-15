@@ -8,13 +8,12 @@ import {
   Post,
 } from '@nestjs/common';
 import { BookRoomInputDto } from './book-room-input.dto';
-import { BookRoomCommandHandler } from './application/BookRoomCommandHandler';
 import { BookRoomCommand } from './application/BookRoomCommand';
 import { RoomAlreadyBooked } from './domainmodel/RoomAlreadyBooked';
 import { CommandBus } from '@nestjs/cqrs';
 
 @Controller()
-export class BookRoomController {
+export class PostRoomsController {
   constructor(private commandBus: CommandBus) {}
 
   @Post('rooms')
