@@ -8,27 +8,10 @@ import {
   RoomAvailabilityReadLayer,
 } from '../domainmodel/RoomAvailabilityReadLayer';
 import { Room } from '../domainmodel/Room';
+import { InMemoryRoomAvailabilityReadLayer } from '../infrastructure/InMemoryRoomAvailabilityReadLayer';
 
 describe('GetFreeRoomsQueryHandler', () => {
-  const readLayer = new (class implements RoomAvailabilityReadLayer {
-    private availability: AvailabilityMap = {};
-
-    async getAvailability(
-      _arrivalDate: Date,
-      _departureDate: Date,
-    ): Promise<AvailabilityMap> {
-      return this.availability;
-    }
-
-    async addBooking(roomName: string, arrivalDate: Date, departureDate: Date) {
-      if (!this.availability[roomName]) {
-        this.availability[roomName] = [];
-      }
-
-      this.availability[roomName].push([arrivalDate, departureDate]);
-    }
-  })();
-
+  const readLayer = new InMemoryRoomAvailabilityReadLayer();
   const queryHandler = new GetFreeRoomsQueryHandler(readLayer);
 
   it('should throw an invalid date range exception when arrival date is after departure date', () => {
