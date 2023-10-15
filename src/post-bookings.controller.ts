@@ -13,10 +13,10 @@ import { RoomAlreadyBooked } from './domainmodel/RoomAlreadyBooked';
 import { CommandBus } from '@nestjs/cqrs';
 
 @Controller()
-export class PostRoomsController {
+export class PostBookingsController {
   constructor(private commandBus: CommandBus) {}
 
-  @Post('rooms')
+  @Post('bookings')
   @HttpCode(HttpStatus.CREATED)
   async handleRequest(@Body() bookRoomDto: BookRoomInputDto) {
     try {

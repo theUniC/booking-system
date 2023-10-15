@@ -1,5 +1,5 @@
 import * as request from 'supertest';
-import { afterEach, beforeAll, beforeEach, expect } from '@jest/globals';
+import { afterEach, beforeEach, expect } from '@jest/globals';
 import { Test, TestingModule } from '@nestjs/testing';
 import { HttpStatus, INestApplication, ValidationPipe } from '@nestjs/common';
 import { BookRoomInputDto } from './book-room-input.dto';
@@ -12,7 +12,7 @@ import {
 } from './domainmodel/BookingRepository';
 import { InMemoryBookingRepository } from './infrastructure/InMemoryBookingRepository';
 
-describe('BookRoomController', () => {
+describe('PostBookingsController', () => {
   let app: INestApplication;
   let bookingRepository: BookingRepository;
 
