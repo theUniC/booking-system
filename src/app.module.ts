@@ -7,7 +7,8 @@ import { BookRoomCommandHandler } from './application/BookRoomCommandHandler';
 import { BOOKING_REPOSITORY } from './domainmodel/BookingRepository';
 import { TypeOrmBookingRepository } from './infrastructure/TypeOrmBookingRepository';
 import { CqrsModule } from '@nestjs/cqrs';
-import { ROOM_AVAILABILITY_FILE_PATH } from './infrastructure/FileRoomAvailabilityReadLayer';
+import { FileRoomAvailabilityReadLayer } from './infrastructure/FileRoomAvailabilityReadLayer';
+import { ROOM_AVAILABILITY_READ_LAYER } from './infrastructure/RoomAvailabilityReadLayer';
 
 @Module({
   imports: [
@@ -31,6 +32,10 @@ import { ROOM_AVAILABILITY_FILE_PATH } from './infrastructure/FileRoomAvailabili
       useClass: TypeOrmBookingRepository,
     },
     BookRoomCommandHandler,
+    {
+      provide: ROOM_AVAILABILITY_READ_LAYER,
+      useClass: FileRoomAvailabilityReadLayer,
+    },
   ],
 })
 export class AppModule {}

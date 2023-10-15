@@ -58,7 +58,7 @@ describe('PostBookingsController', () => {
       );
 
       const response = await request(app.getHttpServer())
-        .post('/rooms')
+        .post('/bookings')
         .send(bookRoomDto);
 
       expect(response.status).toBe(HttpStatus.BAD_REQUEST);
@@ -74,7 +74,7 @@ describe('PostBookingsController', () => {
     );
 
     const response = await request(app.getHttpServer())
-      .post('/rooms')
+      .post('/bookings')
       .send(bookRoomDto);
 
     expect(response.status).toBe(HttpStatus.CREATED);
@@ -92,9 +92,9 @@ describe('PostBookingsController', () => {
       );
 
       const api = request(app.getHttpServer());
-      const response = await api.post('/rooms').send(bookRoomDto);
+      const response = await api.post('/bookings').send(bookRoomDto);
       expect(response.status).toBe(HttpStatus.CREATED);
-      const failingResponse = await api.post('/rooms').send(bookRoomDto);
+      const failingResponse = await api.post('/bookings').send(bookRoomDto);
       expect(failingResponse.status).toBe(HttpStatus.CONFLICT);
     });
   });
