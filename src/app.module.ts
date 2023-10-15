@@ -7,6 +7,7 @@ import { BookRoomCommandHandler } from './application/BookRoomCommandHandler';
 import { BOOKING_REPOSITORY } from './domainmodel/BookingRepository';
 import { TypeOrmBookingRepository } from './infrastructure/TypeOrmBookingRepository';
 import { CqrsModule } from '@nestjs/cqrs';
+import { ROOM_AVAILABILITY_FILE_PATH } from './infrastructure/FileRoomAvailabilityReadLayer';
 
 @Module({
   imports: [

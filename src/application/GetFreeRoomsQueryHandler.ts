@@ -3,7 +3,7 @@ import { GetFreeRoomsQuery } from './GetFreeRoomsQuery';
 import { areIntervalsOverlapping, isAfter } from 'date-fns';
 import { InvalidDateRangeProvided } from '../domainmodel/InvalidDateRangeProvided';
 import { Room } from '../domainmodel/Room';
-import { RoomAvailabilityReadLayer } from '../domainmodel/RoomAvailabilityReadLayer';
+import { RoomAvailabilityReadLayer } from '../infrastructure/RoomAvailabilityReadLayer';
 
 @QueryHandler(GetFreeRoomsQuery)
 export class GetFreeRoomsQueryHandler
@@ -19,10 +19,7 @@ export class GetFreeRoomsQueryHandler
   }: GetFreeRoomsQuery): Promise<Room[]> {
     this.assertArrivalDateIsBeforeDepartureDate(arrivalDate, departureDate);
 
-    const availability = await this.roomAvailabilityReadLayer.getAvailability(
-      arrivalDate,
-      departureDate,
-    );
+    const availability = await this.roomAvailabilityReadLayer.getAvailability();
 
     const comparingInterval = { start: arrivalDate, end: departureDate };
     return Object.keys(availability)

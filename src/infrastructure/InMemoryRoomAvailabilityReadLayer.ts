@@ -1,17 +1,14 @@
 import {
   AvailabilityMap,
   RoomAvailabilityReadLayer,
-} from '../domainmodel/RoomAvailabilityReadLayer';
+} from './RoomAvailabilityReadLayer';
 
 export class InMemoryRoomAvailabilityReadLayer
   implements RoomAvailabilityReadLayer
 {
   private availability: AvailabilityMap = {};
 
-  async getAvailability(
-    _arrivalDate: Date,
-    _departureDate: Date,
-  ): Promise<AvailabilityMap> {
+  async getAvailability(): Promise<AvailabilityMap> {
     return this.availability;
   }
 

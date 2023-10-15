@@ -3,10 +3,6 @@ import { InvalidDateRangeProvided } from '../domainmodel/InvalidDateRangeProvide
 import { GetFreeRoomsQuery } from './GetFreeRoomsQuery';
 import { GetFreeRoomsQueryHandler } from './GetFreeRoomsQueryHandler';
 import { addDays } from 'date-fns';
-import {
-  AvailabilityMap,
-  RoomAvailabilityReadLayer,
-} from '../domainmodel/RoomAvailabilityReadLayer';
 import { Room } from '../domainmodel/Room';
 import { InMemoryRoomAvailabilityReadLayer } from '../infrastructure/InMemoryRoomAvailabilityReadLayer';
 
