@@ -4,12 +4,12 @@ import {
   Injectable,
   PipeTransform,
 } from '@nestjs/common';
-import { parseISO } from 'date-fns';
+import { parseJSON } from 'date-fns';
 
 @Injectable()
 export class ParseDatePipe implements PipeTransform<string, Date> {
   transform(value: string, metadata: ArgumentMetadata): Date {
-    const date = parseISO(value);
+    const date = parseJSON(value);
 
     if ('Invalid Date' === date.toString()) {
       throw new BadRequestException(

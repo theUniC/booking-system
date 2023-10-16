@@ -10,6 +10,7 @@ import { CqrsModule } from '@nestjs/cqrs';
 import { FileRoomAvailabilityReadLayer } from './infrastructure/FileRoomAvailabilityReadLayer';
 import { ROOM_AVAILABILITY_READ_LAYER } from './infrastructure/RoomAvailabilityReadLayer';
 import { GetAvailableRoomsController } from './get-available-rooms.controller';
+import { GetFreeRoomsQueryHandler } from './application/GetFreeRoomsQueryHandler';
 
 @Module({
   imports: [
@@ -37,6 +38,7 @@ import { GetAvailableRoomsController } from './get-available-rooms.controller';
       provide: ROOM_AVAILABILITY_READ_LAYER,
       useClass: FileRoomAvailabilityReadLayer,
     },
+    GetFreeRoomsQueryHandler,
   ],
 })
 export class AppModule {}

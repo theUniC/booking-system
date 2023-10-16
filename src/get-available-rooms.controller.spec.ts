@@ -5,6 +5,7 @@ import { HttpStatus, INestApplication, ValidationPipe } from '@nestjs/common';
 import { AppModule } from './app.module';
 import { InMemoryRoomAvailabilityReadLayer } from './infrastructure/InMemoryRoomAvailabilityReadLayer';
 import { ROOM_AVAILABILITY_READ_LAYER } from './infrastructure/RoomAvailabilityReadLayer';
+import { addDays } from 'date-fns';
 
 describe('GetRoomsController', () => {
   let app: INestApplication;
@@ -32,5 +33,21 @@ describe('GetRoomsController', () => {
   it('should return a 400 Bad Request when no dates are provided', async () => {
     const response = await request(app.getHttpServer()).get('/available-rooms');
     expect(response.status).toBe(HttpStatus.BAD_REQUEST);
+  });
+
+  it('should return the list of rooms available', async () => {
+    await readLayer.addBooking('test', new Date(), new Date());
+    const response = await request(app.getHttpServer())
+      .get('/available-rooms')
+      .query({
+        arrivalDate: addDays(new Date(), 2).toISOString(),
+        departureDate: addDays(new Date(), 4).toISOString(),
+      });
+
+    expect(response.status).toBe(HttpStatus.OK);
+    expect(response.body).toBeInstanceOf(Array);
+    expect(response.body).toEqual(
+      expect.arrayContaining([{ roomName: 'test' }]),
+    );
   });
 });

@@ -3,13 +3,18 @@ import { GetFreeRoomsQuery } from './GetFreeRoomsQuery';
 import { areIntervalsOverlapping, isAfter } from 'date-fns';
 import { InvalidDateRangeProvided } from '../domainmodel/InvalidDateRangeProvided';
 import { Room } from '../domainmodel/Room';
-import { RoomAvailabilityReadLayer } from '../infrastructure/RoomAvailabilityReadLayer';
+import {
+  ROOM_AVAILABILITY_READ_LAYER,
+  RoomAvailabilityReadLayer,
+} from '../infrastructure/RoomAvailabilityReadLayer';
+import { Inject } from '@nestjs/common';
 
 @QueryHandler(GetFreeRoomsQuery)
 export class GetFreeRoomsQueryHandler
   implements IQueryHandler<GetFreeRoomsQuery>
 {
   constructor(
+    @Inject(ROOM_AVAILABILITY_READ_LAYER)
     private readonly roomAvailabilityReadLayer: RoomAvailabilityReadLayer,
   ) {}
 
