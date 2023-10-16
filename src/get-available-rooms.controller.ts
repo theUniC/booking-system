@@ -1,7 +1,14 @@
-import { Controller, Get, Query } from '@nestjs/common';
+import {
+  BadRequestException,
+  Controller,
+  Get,
+  InternalServerErrorException,
+  Query,
+} from '@nestjs/common';
 import { ParseDatePipe } from './parse-date.pipe';
 import { QueryBus } from '@nestjs/cqrs';
 import { GetFreeRoomsQuery } from './application/GetFreeRoomsQuery';
+import { InvalidDateRangeProvided } from './domainmodel/InvalidDateRangeProvided';
 
 @Controller()
 export class GetAvailableRoomsController {
@@ -12,8 +19,16 @@ export class GetAvailableRoomsController {
     @Query('arrivalDate', ParseDatePipe) arrivalDate: Date,
     @Query('departureDate', ParseDatePipe) departureDate: Date,
   ) {
-    return await this.queryBus.execute(
-      new GetFreeRoomsQuery(arrivalDate, departureDate),
-    );
+    try {
+      return await this.queryBus.execute(
+        new GetFreeRoomsQuery(arrivalDate, departureDate),
+      );
+    } catch (e) {
+      if (e instanceof InvalidDateRangeProvided) {
+        throw new BadRequestException(e);
+      }
+
+      throw new InternalServerErrorException(e);
+    }
   }
 }

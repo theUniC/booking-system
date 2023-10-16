@@ -35,6 +35,17 @@ describe('GetRoomsController', () => {
     expect(response.status).toBe(HttpStatus.BAD_REQUEST);
   });
 
+  it('should should return a 400 Bad Request when arrival date is after departure date', async () => {
+    const response = await request(app.getHttpServer())
+      .get('/available-rooms')
+      .query({
+        arrivalDate: addDays(new Date(), 2),
+        departureDate: new Date(),
+      });
+
+    expect(response.status).toBe(HttpStatus.BAD_REQUEST);
+  });
+
   it('should return the list of rooms available', async () => {
     await readLayer.addBooking('test', new Date(), new Date());
     const response = await request(app.getHttpServer())
