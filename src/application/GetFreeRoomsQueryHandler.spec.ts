@@ -3,8 +3,8 @@ import { InvalidDateRangeProvided } from '../domainmodel/InvalidDateRangeProvide
 import { GetFreeRoomsQuery } from './GetFreeRoomsQuery';
 import { GetFreeRoomsQueryHandler } from './GetFreeRoomsQueryHandler';
 import { addDays } from 'date-fns';
-import { Room } from '../domainmodel/Room';
 import { InMemoryRoomAvailabilityReadLayer } from '../infrastructure/InMemoryRoomAvailabilityReadLayer';
+import { Room } from '../infrastructure/Room';
 
 describe('GetFreeRoomsQueryHandler', () => {
   const readLayer = new InMemoryRoomAvailabilityReadLayer();

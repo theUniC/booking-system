@@ -2,12 +2,12 @@ import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 import { GetFreeRoomsQuery } from './GetFreeRoomsQuery';
 import { areIntervalsOverlapping, isAfter } from 'date-fns';
 import { InvalidDateRangeProvided } from '../domainmodel/InvalidDateRangeProvided';
-import { Room } from '../domainmodel/Room';
 import {
   ROOM_AVAILABILITY_READ_LAYER,
   RoomAvailabilityReadLayer,
 } from '../infrastructure/RoomAvailabilityReadLayer';
 import { Inject } from '@nestjs/common';
+import { Room } from '../infrastructure/Room';
 
 @QueryHandler(GetFreeRoomsQuery)
 export class GetFreeRoomsQueryHandler

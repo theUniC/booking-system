@@ -9,3 +9,7 @@ services:
       POSTGRES_USER: booking
       POSTGRES_PASSWORD: 1234Abcd
       POSTGRES_DB: booking
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379:6379"

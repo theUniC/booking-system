@@ -7,10 +7,12 @@ import { BookRoomCommandHandler } from './application/BookRoomCommandHandler';
 import { BOOKING_REPOSITORY } from './domainmodel/BookingRepository';
 import { TypeOrmBookingRepository } from './infrastructure/TypeOrmBookingRepository';
 import { CqrsModule } from '@nestjs/cqrs';
-import { FileRoomAvailabilityReadLayer } from './infrastructure/FileRoomAvailabilityReadLayer';
 import { ROOM_AVAILABILITY_READ_LAYER } from './infrastructure/RoomAvailabilityReadLayer';
 import { GetAvailableRoomsController } from './get-available-rooms.controller';
 import { GetFreeRoomsQueryHandler } from './application/GetFreeRoomsQueryHandler';
+import { RoomWasBookedEventHandler } from './infrastructure/RoomWasBookedEventHandler';
+import Redis from 'ioredis';
+import { RedisRoomAvailabilityReadLayer } from './infrastructure/RedisRoomAvailabilityReadLayer';
 
 @Module({
   imports: [
@@ -36,9 +38,16 @@ import { GetFreeRoomsQueryHandler } from './application/GetFreeRoomsQueryHandler
     BookRoomCommandHandler,
     {
       provide: ROOM_AVAILABILITY_READ_LAYER,
-      useClass: FileRoomAvailabilityReadLayer,
+      useClass: RedisRoomAvailabilityReadLayer,
+    },
+    {
+      provide: Redis,
+      useFactory: (config: ConfigService) =>
+        new Redis(config.getOrThrow('REDIS_URL')),
+      inject: [ConfigService],
     },
     GetFreeRoomsQueryHandler,
+    RoomWasBookedEventHandler,
   ],
 })
 export class AppModule {}

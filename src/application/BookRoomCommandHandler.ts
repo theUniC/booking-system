@@ -8,7 +8,12 @@ import { RoomAlreadyBooked } from '../domainmodel/RoomAlreadyBooked';
 import { BookRoomCommand } from './BookRoomCommand';
 import { Booking } from '../domainmodel/Booking';
 import { Inject } from '@nestjs/common';
-import { CommandHandler, EventPublisher, ICommandHandler } from '@nestjs/cqrs';
+import {
+  CommandHandler,
+  EventBus,
+  EventPublisher,
+  ICommandHandler,
+} from '@nestjs/cqrs';
 
 @CommandHandler(BookRoomCommand)
 export class BookRoomCommandHandler
@@ -17,7 +22,7 @@ export class BookRoomCommandHandler
   constructor(
     @Inject(BOOKING_REPOSITORY)
     private readonly bookingRepository: BookingRepository,
-    private readonly eventPublisher: EventPublisher,
+    private readonly eventBus: EventBus,
   ) {}
 
   async execute(command: BookRoomCommand) {
@@ -32,10 +37,9 @@ export class BookRoomCommandHandler
       command.departureDate,
     );
 
-    this.eventPublisher.mergeClassContext(Booking);
     const booking = Booking.book(command);
     await this.bookingRepository.add(booking);
-    booking.commit();
+    this.eventBus.publishAll(booking.getUncommittedEvents());
   }
 
   private assertArrivalDateIsBeforeDepartureDate(
