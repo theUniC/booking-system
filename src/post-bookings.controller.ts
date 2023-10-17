@@ -8,7 +8,7 @@ import {
   Post,
 } from '@nestjs/common';
 import { BookRoomInputDto } from './book-room-input.dto';
-import { BookRoomCommand } from './application/BookRoomCommand';
+import { BookRoomCommand } from './application/command/BookRoomCommand';
 import { RoomAlreadyBooked } from './domainmodel/RoomAlreadyBooked';
 import { CommandBus } from '@nestjs/cqrs';
 

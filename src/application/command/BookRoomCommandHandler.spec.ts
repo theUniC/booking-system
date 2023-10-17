@@ -1,17 +1,17 @@
 import { beforeEach, expect } from '@jest/globals';
 import { addDays, subDays } from 'date-fns';
-import { InvalidDateRangeProvided } from '../domainmodel/InvalidDateRangeProvided';
-import { RoomAlreadyBooked } from '../domainmodel/RoomAlreadyBooked';
+import { InvalidDateRangeProvided } from '../../domainmodel/InvalidDateRangeProvided';
+import { RoomAlreadyBooked } from '../../domainmodel/RoomAlreadyBooked';
 import {
   BOOKING_REPOSITORY,
   BookingRepository,
-} from '../domainmodel/BookingRepository';
-import { InMemoryBookingRepository } from '../infrastructure/InMemoryBookingRepository';
-import { Booking } from '../domainmodel/Booking';
+} from '../../domainmodel/BookingRepository';
+import { InMemoryBookingRepository } from '../../infrastructure/InMemoryBookingRepository';
+import { Booking } from '../../domainmodel/Booking';
 import { BookRoomCommandHandler } from './BookRoomCommandHandler';
 import { BookRoomCommand } from './BookRoomCommand';
 import { Test, TestingModule } from '@nestjs/testing';
-import { AppModule } from '../app.module';
+import { AppModule } from '../../app.module';
 
 describe('BookRoom', () => {
   let repository: BookingRepository;

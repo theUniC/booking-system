@@ -7,7 +7,7 @@ import {
 } from '@nestjs/common';
 import { ParseDatePipe } from './parse-date.pipe';
 import { QueryBus } from '@nestjs/cqrs';
-import { GetFreeRoomsQuery } from './application/GetFreeRoomsQuery';
+import { GetFreeRoomsQuery } from './application/query/GetFreeRoomsQuery';
 import { InvalidDateRangeProvided } from './domainmodel/InvalidDateRangeProvided';
 
 @Controller()

@@ -1,10 +1,10 @@
 import { expect } from '@jest/globals';
-import { InvalidDateRangeProvided } from '../domainmodel/InvalidDateRangeProvided';
+import { InvalidDateRangeProvided } from '../../domainmodel/InvalidDateRangeProvided';
 import { GetFreeRoomsQuery } from './GetFreeRoomsQuery';
 import { GetFreeRoomsQueryHandler } from './GetFreeRoomsQueryHandler';
 import { addDays } from 'date-fns';
-import { InMemoryRoomAvailabilityReadLayer } from '../infrastructure/InMemoryRoomAvailabilityReadLayer';
-import { Room } from '../infrastructure/Room';
+import { InMemoryRoomAvailabilityReadLayer } from '../../infrastructure/InMemoryRoomAvailabilityReadLayer';
+import { Room } from './Room';
 
 describe('GetFreeRoomsQueryHandler', () => {
   const readLayer = new InMemoryRoomAvailabilityReadLayer();

@@ -1,7 +1,7 @@
 import {
   AvailabilityMap,
   RoomAvailabilityReadLayer,
-} from './RoomAvailabilityReadLayer';
+} from '../application/query/RoomAvailabilityReadLayer';
 
 export class InMemoryRoomAvailabilityReadLayer
   implements RoomAvailabilityReadLayer

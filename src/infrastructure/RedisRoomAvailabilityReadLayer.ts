@@ -1,7 +1,7 @@
 import {
   AvailabilityMap,
   RoomAvailabilityReadLayer,
-} from './RoomAvailabilityReadLayer';
+} from '../application/query/RoomAvailabilityReadLayer';
 import Redis from 'ioredis';
 import { parseJSON } from 'date-fns';
 import { Inject } from '@nestjs/common';

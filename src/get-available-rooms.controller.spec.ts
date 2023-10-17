@@ -4,7 +4,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { HttpStatus, INestApplication, ValidationPipe } from '@nestjs/common';
 import { AppModule } from './app.module';
 import { InMemoryRoomAvailabilityReadLayer } from './infrastructure/InMemoryRoomAvailabilityReadLayer';
-import { ROOM_AVAILABILITY_READ_LAYER } from './infrastructure/RoomAvailabilityReadLayer';
+import { ROOM_AVAILABILITY_READ_LAYER } from './application/query/RoomAvailabilityReadLayer';
 import { addDays } from 'date-fns';
 
 describe('GetRoomsController', () => {

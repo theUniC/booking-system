@@ -1,12 +1,12 @@
 import { isAfter } from 'date-fns';
-import { InvalidDateRangeProvided } from '../domainmodel/InvalidDateRangeProvided';
+import { InvalidDateRangeProvided } from '../../domainmodel/InvalidDateRangeProvided';
 import {
   BOOKING_REPOSITORY,
   BookingRepository,
-} from '../domainmodel/BookingRepository';
-import { RoomAlreadyBooked } from '../domainmodel/RoomAlreadyBooked';
+} from '../../domainmodel/BookingRepository';
+import { RoomAlreadyBooked } from '../../domainmodel/RoomAlreadyBooked';
 import { BookRoomCommand } from './BookRoomCommand';
-import { Booking } from '../domainmodel/Booking';
+import { Booking } from '../../domainmodel/Booking';
 import { Inject } from '@nestjs/common';
 import {
   CommandHandler,

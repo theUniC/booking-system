@@ -1,9 +1,9 @@
 import { EventsHandler, IEventHandler } from '@nestjs/cqrs';
-import { RoomWasBooked } from '../domainmodel/RoomWasBooked';
+import { RoomWasBooked } from '../../domainmodel/RoomWasBooked';
 import {
   ROOM_AVAILABILITY_READ_LAYER,
   RoomAvailabilityReadLayer,
-} from './RoomAvailabilityReadLayer';
+} from '../query/RoomAvailabilityReadLayer';
 import { Inject } from '@nestjs/common';
 
 @EventsHandler(RoomWasBooked)

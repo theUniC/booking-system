@@ -3,14 +3,14 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { Booking } from './domainmodel/Booking';
 import { PostBookingsController } from './post-bookings.controller';
-import { BookRoomCommandHandler } from './application/BookRoomCommandHandler';
+import { BookRoomCommandHandler } from './application/command/BookRoomCommandHandler';
 import { BOOKING_REPOSITORY } from './domainmodel/BookingRepository';
 import { TypeOrmBookingRepository } from './infrastructure/TypeOrmBookingRepository';
 import { CqrsModule } from '@nestjs/cqrs';
-import { ROOM_AVAILABILITY_READ_LAYER } from './infrastructure/RoomAvailabilityReadLayer';
+import { ROOM_AVAILABILITY_READ_LAYER } from './application/query/RoomAvailabilityReadLayer';
 import { GetAvailableRoomsController } from './get-available-rooms.controller';
-import { GetFreeRoomsQueryHandler } from './application/GetFreeRoomsQueryHandler';
-import { RoomWasBookedEventHandler } from './infrastructure/RoomWasBookedEventHandler';
+import { GetFreeRoomsQueryHandler } from './application/query/GetFreeRoomsQueryHandler';
+import { RoomWasBookedEventHandler } from './application/event/RoomWasBookedEventHandler';
 import Redis from 'ioredis';
 import { RedisRoomAvailabilityReadLayer } from './infrastructure/RedisRoomAvailabilityReadLayer';
 
