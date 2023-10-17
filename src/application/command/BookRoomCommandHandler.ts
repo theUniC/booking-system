@@ -8,12 +8,7 @@ import { RoomAlreadyBooked } from '../../domainmodel/RoomAlreadyBooked';
 import { BookRoomCommand } from './BookRoomCommand';
 import { Booking } from '../../domainmodel/Booking';
 import { Inject } from '@nestjs/common';
-import {
-  CommandHandler,
-  EventBus,
-  EventPublisher,
-  ICommandHandler,
-} from '@nestjs/cqrs';
+import { CommandHandler, EventBus, ICommandHandler } from '@nestjs/cqrs';
 
 @CommandHandler(BookRoomCommand)
 export class BookRoomCommandHandler

@@ -13,3 +13,15 @@ services:
     image: redis:alpine
     ports:
       - "6379:6379"
+  app:
+    build:
+      dockerfile: Dockerfile
+      target: runner
+      context: .
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: production
+      DATABASE_DRIVER: postgres
+      DATABASE_URL: postgresql://booking:1234Abcd@postgres:5432
+      REDIS_URL: redis://redis:6379
